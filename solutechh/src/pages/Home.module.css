@@ -1,0 +1,254 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 45%, rgba(255, 255, 255, 0) 100%),
+    url('https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center center/cover no-repeat;
+}
+
+.shape-1 {
+  position: absolute;
+  left: -10%;
+  top: 40%;
+  width: 50%;
+  height: 80%;
+  background-color: var(--primary-teal);
+  opacity: 0.9;
+  border-radius: 50%;
+  transform: rotate(15deg);
+  filter: blur(2px);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+
+.heroContent {
+  max-width: 600px;
+  position: relative;
+  z-index: 10;
+  margin-top: -50px;
+}
+
+.mainHeading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 54px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0a0a0a;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.mainHeading span {
+  color: #1DB9AE;
+}
+
+.heroContent p {
+  font-size: 20px;
+  color: #1a1a1a;
+  margin-bottom: 40px;
+  line-height: 1.8;
+  font-weight: 600;
+  /* text-align: center; */
+}
+
+.btnGroup {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btnPrimary,
+.btnOutline {
+  background-color: white;
+  color: #127b73;
+  border: 2px solid white;
+}
+
+.btnPrimary:hover,
+.btnOutline:hover {
+  background-color: #1DB9AE;
+  color: white;
+  border-color: #1DB9AE;
+}
+
+/* STATS */
+.statsWrapper {
+  position: relative;
+  z-index: 20;
+  margin-top: -80px;
+  padding: 0 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.statsContainer {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 1100px;
+  padding: 30px 0;
+}
+
+.statBox {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.statBox h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.statBox p {
+  font-size: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* SERVICES */
+.servicesSection {
+  padding: 100px 80px 80px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.servicesGrid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.serviceLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.serviceCard {
+  background-color: white;
+  border-radius: 15px;
+  padding: 40px 25px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 220px;
+  cursor: pointer;
+}
+
+.serviceCard:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.serviceIconWrapper {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.serviceIcon {
+  font-size: 45px;
+  color: #1DB9AE;
+}
+
+.serviceCard h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin-bottom: 10px;
+}
+
+.serviceCard p {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.founderImg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    padding: 0 40px;
+  }
+
+  .mainHeading {
+    font-size: 42px;
+  }
+
+  .statsWrapper {
+    padding: 0 40px;
+  }
+
+  .servicesSection {
+    padding: 80px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    align-items: flex-start;
+    padding-top: 80px;
+    min-height: auto;
+    padding-bottom: 60px;
+  }
+
+  .heroContent {
+    margin-top: 0;
+  }
+
+  .statsWrapper {
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+
+  .statsContainer {
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  .servicesSection {
+    padding: 60px 20px;
+  }
+
+  .serviceCard {
+    width: 100%;
+  }
+}

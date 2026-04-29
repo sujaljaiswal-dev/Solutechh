@@ -1,0 +1,97 @@
+.header {
+  background: #ffffff;
+  padding: 10px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: 3px solid #1DB9AE;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* font-size: 30px; */
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logoImg {
+  height: 70px;
+  width: auto;
+}
+
+.logoText h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #1DB9AE;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin: 0 0 2px;
+}
+
+.logoText p {
+  font-size: 10px;
+  color: #666;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.navList {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background-color: #127b73;
+  transition: 0.3s;
+}
+
+.navLink:hover::after,
+.active::after {
+  width: 100%;
+}
+
+.navLink:hover,
+.active {
+  color: #1DB9AE;
+  background: rgba(29, 185, 174, 0.1);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 14px;
+    padding: 12px 20px;
+  }
+
+  .navList {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

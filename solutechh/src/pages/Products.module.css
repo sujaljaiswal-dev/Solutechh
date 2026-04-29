@@ -1,0 +1,424 @@
+/* PAGE HERO SECTION - Products */
+.pageHero {
+    position: relative;
+    min-height: 55vh;
+    background: linear-gradient(135deg, rgba(11, 31, 30, 0.85) 0%, rgba(29, 185, 174, 0.9) 100%),
+        url('https://png.pngtree.com/background/20230411/original/pngtree-medical-equipment-blue-simple-background-picture-image_2390500.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+    padding: 80px 60px;
+}
+
+.pageHero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background-color: rgba(29, 185, 174, 0.08);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.pageHero::after {
+    content: "";
+    position: absolute;
+    bottom: -20%;
+    right: 5%;
+    width: 350px;
+    height: 350px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+}
+
+.pageHero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+    text-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+}
+
+.pageHero p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.3px;
+}
+
+/* PAGE SECTION */
+.pageSection {
+    padding: 80px 60px;
+    background-color: #f5f8f8;
+    position: relative;
+}
+
+.pageSection::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #1DB9AE, transparent);
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.sectionHeader h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: #127b73;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.sectionHeader h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #1DB9AE, #127b73);
+    border-radius: 2px;
+}
+
+.sectionHeader p {
+    font-size: 16px;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* GRID LAYOUT */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* CARD STYLING - Premium Look */
+.card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    border: 1px solid rgba(29, 185, 174, 0.1);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #1DB9AE, #159a91, #127b73);
+    z-index: 2;
+}
+
+.card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(29, 185, 174, 0.2);
+    border-color: #1DB9AE;
+}
+
+.cardImageContainer {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card:hover img {
+    transform: scale(1.12) rotate(2deg);
+}
+
+.cardBadge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #1DB9AE;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 3;
+}
+
+.card:hover .cardBadge {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cardContent {
+    padding: 28px 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #127b73;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.card h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #1DB9AE;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+.card:hover h3::after {
+    width: 50px;
+}
+
+.card p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    color: #555;
+    line-height: 1.7;
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+
+/* ICON INDICATOR */
+.cardIcon {
+    font-size: 14px;
+    color: #1DB9AE;
+    margin-right: 8px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+    .pageHero {
+        min-height: 50vh;
+        padding: 60px 40px;
+    }
+
+    .pageHero::before {
+        width: 400px;
+        height: 400px;
+    }
+
+    .pageHero::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    .pageHero h1 {
+        font-size: 42px;
+    }
+
+    .pageHero p {
+        font-size: 16px;
+    }
+
+    .pageSection {
+        padding: 60px 40px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 30px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+    }
+
+    .card img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pageHero {
+        min-height: 45vh;
+        padding: 50px 20px;
+    }
+
+    .pageHero::before {
+        width: 300px;
+        height: 300px;
+        top: -20%;
+        left: -10%;
+    }
+
+    .pageHero::after {
+        width: 250px;
+        height: 250px;
+        bottom: -15%;
+        right: 0;
+    }
+
+    .pageHero h1 {
+        font-size: 32px;
+    }
+
+    .pageHero p {
+        font-size: 15px;
+    }
+
+    .pageSection {
+        padding: 50px 20px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 26px;
+    }
+
+    .sectionHeader h2::after {
+        width: 50px;
+    }
+
+    .sectionHeader p {
+        font-size: 14px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card {
+        border-radius: 14px;
+    }
+
+    .card:hover {
+        transform: translateY(-12px) scale(1.01);
+    }
+
+    .cardImageContainer {
+        height: 200px;
+    }
+
+    .cardContent {
+        padding: 22px 18px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+        padding-bottom: 8px;
+    }
+
+    .card:hover h3::after {
+        width: 40px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pageHero {
+        min-height: 40vh;
+        padding: 40px 15px;
+    }
+
+    .pageHero h1 {
+        font-size: 26px;
+    }
+
+    .pageHero p {
+        font-size: 14px;
+    }
+
+    .pageSection {
+        padding: 40px 15px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 22px;
+    }
+
+    .grid {
+        gap: 16px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card:hover {
+        transform: translateY(-8px) scale(1);
+    }
+
+    .cardImageContainer {
+        height: 180px;
+    }
+
+    .cardContent {
+        padding: 18px 14px;
+    }
+
+    .card h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .cardBadge {
+        font-size: 10px;
+        padding: 4px 10px;
+    }
+}

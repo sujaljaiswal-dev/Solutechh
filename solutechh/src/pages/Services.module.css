@@ -1,0 +1,302 @@
+/* PAGE HERO SECTION */
+.pageHero {
+    position: relative;
+    min-height: 55vh;
+    background: linear-gradient(135deg, #1DB9AE 0%, #127b73 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+    padding: 80px 60px;
+}
+
+.pageHero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.pageHero::after {
+    content: "";
+    position: absolute;
+    bottom: -30%;
+    left: 10%;
+    width: 400px;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+}
+
+.pageHero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pageHero p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.3px;
+}
+
+/* PAGE SECTION */
+.pageSection {
+    padding: 80px 60px;
+    background-color: #f5f8f8;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.sectionHeader h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: #127b73;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+}
+
+.sectionHeader p {
+    font-size: 16px;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* GRID LAYOUT */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* CARD STYLING */
+.card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 2px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(29, 185, 174, 0.15);
+    border-color: #1DB9AE;
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover img {
+    transform: scale(1.08);
+}
+
+.cardContent {
+    padding: 28px 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #127b73;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+}
+
+.card p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    color: #555;
+    line-height: 1.65;
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+
+/* ACCENT ELEMENTS */
+.cardBorder {
+    position: relative;
+    height: 4px;
+    background: linear-gradient(90deg, #1DB9AE 0%, #159a91 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .cardBorder {
+    opacity: 1;
+}
+
+/* BUTTON STYLING FOR LINKED CARDS */
+.cardLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+    .pageHero {
+        min-height: 50vh;
+        padding: 60px 40px;
+    }
+
+    .pageHero h1 {
+        font-size: 42px;
+    }
+
+    .pageHero p {
+        font-size: 16px;
+    }
+
+    .pageSection {
+        padding: 60px 40px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 30px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pageHero {
+        min-height: 45vh;
+        padding: 50px 20px;
+    }
+
+    .pageHero::before {
+        width: 400px;
+        height: 400px;
+        top: -30%;
+        right: -20%;
+    }
+
+    .pageHero::after {
+        width: 300px;
+        height: 300px;
+        bottom: -20%;
+        left: 0;
+    }
+
+    .pageHero h1 {
+        font-size: 32px;
+    }
+
+    .pageHero p {
+        font-size: 15px;
+    }
+
+    .pageSection {
+        padding: 50px 20px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 26px;
+    }
+
+    .sectionHeader p {
+        font-size: 14px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card img {
+        height: 200px;
+    }
+
+    .cardContent {
+        padding: 20px 16px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pageHero {
+        min-height: 40vh;
+        padding: 40px 15px;
+    }
+
+    .pageHero h1 {
+        font-size: 26px;
+    }
+
+    .pageHero p {
+        font-size: 14px;
+    }
+
+    .pageSection {
+        padding: 40px 15px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 22px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .card img {
+        height: 180px;
+    }
+
+    .cardContent {
+        padding: 16px 12px;
+    }
+}
