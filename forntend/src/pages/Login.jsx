@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import styles from './Login.module.css';
 
 export default function Login() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -23,20 +25,14 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+        setError('');
 
         try {
-            // TODO: Replace with actual API call
-            console.log('Login attempt:', formData);
-
-            // Simulate API call
-            setTimeout(() => {
-                // Store user data in localStorage
-                localStorage.setItem('user', JSON.stringify({ email: formData.email }));
-                navigate('/');
-                setIsLoading(false);
-            }, 1000);
+            await login(formData.email, formData.password);
+            navigate('/');
         } catch (err) {
-            setError('Login failed. Please try again.');
+            setError(err.response?.data?.message || 'Login failed. Please try again.');
+        } finally {
             setIsLoading(false);
         }
     };

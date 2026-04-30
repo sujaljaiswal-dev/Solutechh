@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { contactAPI } from '../services/api';
 import styles from './ContactForm.module.css';
 
 export default function ContactForm({ isOpen, onClose }) {
@@ -10,6 +11,8 @@ export default function ContactForm({ isOpen, onClose }) {
     });
 
     const [submitted, setSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -17,20 +20,29 @@ export default function ContactForm({ isOpen, onClose }) {
             ...prev,
             [name]: value
         }));
+        setError('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission here (can be sent to backend)
-        console.log('Form submitted:', formData);
-        setSubmitted(true);
+        setIsLoading(true);
+        setError('');
 
-        // Reset form after 2 seconds and close
-        setTimeout(() => {
-            setFormData({ name: '', email: '', phone: '', reason: '' });
-            setSubmitted(false);
-            onClose();
-        }, 2000);
+        try {
+            await contactAPI.submitContact(formData);
+            setSubmitted(true);
+
+            // Reset form after 2 seconds and close
+            setTimeout(() => {
+                setFormData({ name: '', email: '', phone: '', reason: '' });
+                setSubmitted(false);
+                onClose();
+            }, 2000);
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to submit. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     if (!isOpen) return null;
@@ -52,6 +64,8 @@ export default function ContactForm({ isOpen, onClose }) {
                     <>
                         <h2>Get in Touch</h2>
                         <p className={styles.subtitle}>Let's discuss how we can help your healthcare facility</p>
+
+                        {error && <div style={{ color: '#dc3545', marginBottom: '15px', padding: '10px', backgroundColor: '#f8d7da', borderRadius: '4px' }}>{error}</div>}
 
                         <form onSubmit={handleSubmit} className={styles.form}>
                             <div className={styles.formGroup}>
@@ -106,8 +120,8 @@ export default function ContactForm({ isOpen, onClose }) {
                                 ></textarea>
                             </div>
 
-                            <button type="submit" className={styles.submitBtn}>
-                                Submit <i className="fa-solid fa-paper-plane"></i>
+                            <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+                                {isLoading ? 'Submitting...' : 'Submit'} <i className="fa-solid fa-paper-plane"></i>
                             </button>
                         </form>
                     </>

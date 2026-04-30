@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import styles from './SignUp.module.css';
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const { register } = useAuth();
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -39,23 +41,14 @@ export default function SignUp() {
         }
 
         setIsLoading(true);
+        setError('');
 
         try {
-            // TODO: Replace with actual API call
-            console.log('Sign up attempt:', formData);
-
-            // Simulate API call
-            setTimeout(() => {
-                localStorage.setItem('user', JSON.stringify({
-                    fullName: formData.fullName,
-                    email: formData.email,
-                    phone: formData.phone
-                }));
-                navigate('/');
-                setIsLoading(false);
-            }, 1000);
+            await register(formData.fullName, formData.email, formData.password);
+            navigate('/');
         } catch (err) {
-            setError('Sign up failed. Please try again.');
+            setError(err.response?.data?.message || 'Sign up failed. Please try again.');
+        } finally {
             setIsLoading(false);
         }
     };
