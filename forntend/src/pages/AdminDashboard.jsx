@@ -34,7 +34,7 @@ export default function AdminDashboard() {
                 adminAPI.getAllContacts(),
             ]);
             setStats(dashboardRes.data.data);
-            setProducts(productsRes.data.data);
+            setProducts(productsRes.data.data.products || []);
             setContacts(contactsRes.data.data);
         } catch (err) {
             setError('Failed to load data');
@@ -227,13 +227,14 @@ export default function AdminDashboard() {
                                     </select>
                                 </div>
                                 <div className={styles.formGroup}>
-                                    <label>Image *</label>
+                                    <label>Image {!selectedProduct && '*'}</label>
                                     <input
                                         type="file"
                                         accept="image/*"
                                         onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
-                                        required
+                                        required={!selectedProduct}
                                     />
+                                    {selectedProduct && <small>Leave empty to keep current image</small>}
                                 </div>
                                 <div className={styles.formButtons}>
                                     <button type="submit" className={styles.btnPrimary}>
