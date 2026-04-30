@@ -27,24 +27,6 @@ const projects = [
             'This project highlights our ability to execute large-scale government hospital infrastructure with precision, on time, and within compliance.',
         ],
     },
-    {
-        id: 2,
-        title: 'Kandivali Government Hospital Project',
-        location: 'Kandivali, Mumbai, Maharashtra',
-        type: 'Government Hospital',
-        images: [
-            'https://via.placeholder.com/400x300?text=Kandivali+Hospital+1',
-            'https://via.placeholder.com/400x300?text=Kandivali+Hospital+2',
-            'https://via.placeholder.com/400x300?text=Kandivali+Hospital+3',
-            'https://via.placeholder.com/400x300?text=Kandivali+Hospital+4',
-            'https://via.placeholder.com/400x300?text=Kandivali+Hospital+5',
-            'https://via.placeholder.com/400x300?text=Kandivali+Hospital+6',
-        ],
-        description: [
-            'Solutechh executed a comprehensive healthcare infrastructure project at a government hospital in Kandivali, delivering advanced medical solutions that have significantly improved patient care standards in the facility.',
-            'The project included medical equipment supply, installation, and complete commissioning — all delivered on time and within government tender compliance standards, with dedicated after-sales support.',
-        ],
-    },
 ];
 
 export default function Achievements() {

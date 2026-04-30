@@ -19,6 +19,10 @@ export default function Navbar() {
           <li><NavLink to="/services" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}>Services</NavLink></li>
           <li><NavLink to="/products" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}>Products</NavLink></li>
           <li><NavLink to="/achievements" className={({ isActive }) => isActive ? `${styles.navLink} ${styles.active}` : styles.navLink}>Achievements</NavLink></li>
+          <li className={styles.authLinks}>
+            <NavLink to="/login" className={`${styles.navLink} ${styles.loginBtn}`}>Sign In</NavLink>
+            <NavLink to="/signup" className={`${styles.navLink} ${styles.signupBtn}`}>Sign Up</NavLink>
+          </li>
         </ul>
       </nav>
     </header>

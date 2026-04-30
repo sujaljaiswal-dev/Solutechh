@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import founder1 from '../assets/founder1.jpg';
 import founder2 from '../assets/founder2.jpg';
 import Footer from '../components/Footer';
+import ContactForm from '../components/ContactForm';
 import styles from './Home.module.css';
 
 export default function Home() {
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+
   return (
     <>
       {/* HERO */}
@@ -19,9 +23,13 @@ export default function Home() {
             <a href="#services" className={`${styles.btn} ${styles.btnPrimary}`}>
               Explore Our Services <i className="fa-solid fa-arrow-right"></i>
             </a>
-            <a href="#contact" className={`${styles.btn} ${styles.btnOutline}`}>
+            <button
+              onClick={() => setIsContactFormOpen(true)}
+              className={`${styles.btn} ${styles.btnPrimary}`}
+              style={{ padding: 0, cursor: 'pointer' }}
+            >
               Get in Touch
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -91,6 +99,7 @@ export default function Home() {
       </section>
 
       <Footer />
+      <ContactForm isOpen={isContactFormOpen} onClose={() => setIsContactFormOpen(false)} />
     </>
   );
 }

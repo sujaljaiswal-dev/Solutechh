@@ -46,6 +46,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 .navLink {
@@ -82,6 +83,41 @@
   background: rgba(29, 185, 174, 0.1);
 }
 
+.authLinks {
+  display: flex;
+  gap: 12px;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid #ddd;
+}
+
+.loginBtn {
+  color: #1DB9AE !important;
+  font-weight: 700 !important;
+  padding: 8px 18px !important;
+  border: 1.5px solid #1DB9AE !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+}
+
+.loginBtn:hover {
+  background: rgba(29, 185, 174, 0.1) !important;
+}
+
+.signupBtn {
+  background: linear-gradient(135deg, #1DB9AE 0%, #16a89d 100%) !important;
+  color: white !important;
+  padding: 8px 18px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+}
+
+.signupBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(29, 185, 174, 0.3);
+}
+
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -92,6 +128,14 @@
   .navList {
     gap: 16px;
     flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .authLinks {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    width: 100%;
     justify-content: center;
   }
 }
