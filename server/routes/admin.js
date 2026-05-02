@@ -31,7 +31,7 @@ router.post(
             .notEmpty()
             .withMessage('Description is required'),
         body('category')
-            .isIn(['CSSD', 'Modular OT', 'Skill Labs', 'Pneumatic System', 'Other'])
+            .isIn(['ICU Product', 'OT Product', 'EMR Product'])
             .withMessage('Invalid category'),
     ],
     adminController.addProduct
@@ -47,7 +47,7 @@ router.put(
     [
         body('name').optional().trim(),
         body('description').optional().trim(),
-        body('category').optional().isIn(['CSSD', 'Modular OT', 'Skill Labs', 'Pneumatic System', 'Other']),
+        body('category').optional().isIn(['ICU Product', 'OT Product', 'EMR Product']),
     ],
     adminController.updateProduct
 );

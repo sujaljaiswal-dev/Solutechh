@@ -20,10 +20,10 @@ export function CSSD() {
         { title: 'Storage & Distribution', desc: 'Safe storage and timely supply of sterile instruments across departments.' },
       ]}
       benefits={[
-        'Ensures infection control and patient safety',
-        'Supports smooth hospital operations',
-        'Maintains high sterilization standards',
-        'Reduces risk of contamination',
+        'We ensure the highest standards of sterilization and infection control Patient safety and hygiene are our top priorities',
+        'Equipped with advanced sterilization technology for reliable results We maintain strict protocols for complete safety and efficiency.',
+        'Dedicated to delivering clean, safe, and sterile medical instruments Our process supports better healthcare outcomes every day.',
+        'Trained professionals committed to precision and quality care. We uphold excellence in every step of sterilization and handling',
       ]}
     />
   );
@@ -49,7 +49,7 @@ export function ModularOT() {
         { title: 'Advanced Lighting & HVAC', desc: 'Improves surgical precision and comfort.' },
       ]}
       benefits={[
-        'Meets international healthcare standards',
+        'We provide a fully sterile and well-equipped operation theatre environment.Ensuring patient safety with advanced technology and expert care.',
         'Ensures patient safety',
         'High efficiency and durability',
         'Future-ready and scalable design',

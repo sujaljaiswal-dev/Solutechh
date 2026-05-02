@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema(
         category: {
             type: String,
             required: [true, 'Please provide a category'],
-            enum: ['CSSD', 'Modular OT', 'Skill Labs', 'Pneumatic System', 'Other'],
+            enum: ['ICU Product', 'OT Product', 'EMR Product'],
         },
         image: {
             url: {

@@ -19,16 +19,16 @@ const seedDatabase = async () => {
 
         // Create admin user
         const adminUser = await User.create({
-            name: 'Admin User',
-            email: 'admin@solutechh.com',
-            password: 'Admin@123456',
+            name: 'Admin',
+            email: 'rameshmaurya@gmail.com',
+            password: 'Solutechh@1234',
             role: 'admin',
             isVerified: true,
         });
 
         console.log('✓ Admin user created');
-        console.log('  Email: admin@solutechh.com');
-        console.log('  Password: Admin@123456');
+        console.log('  Email: rameshmaurya@gmail.com');
+        console.log('  Password: Solutechh@1234');
 
         // Create test user
         const testUser = await User.create({

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from './Login.module.css';
 
 export default function Login() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { login } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
@@ -29,7 +30,14 @@ export default function Login() {
 
         try {
             await login(formData.email, formData.password);
-            navigate('/');
+            if (location.state?.returnTo) {
+                navigate(location.state.returnTo, {
+                    replace: true,
+                    state: location.state.openContact ? { openContact: true } : undefined,
+                });
+            } else {
+                navigate('/');
+            }
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed. Please try again.');
         } finally {
@@ -77,28 +85,10 @@ export default function Login() {
                         />
                     </div>
 
-                    <div className={styles.rememberForgot}>
-                        <label>
-                            <input type="checkbox" /> Remember me
-                        </label>
-                        <a href="#forgot">Forgot password?</a>
-                    </div>
-
                     <button type="submit" className={styles.loginBtn} disabled={isLoading}>
                         {isLoading ? 'Signing In...' : 'Sign In'}
                     </button>
                 </form>
-
-                <div className={styles.divider}>OR</div>
-
-                <div className={styles.socialLogin}>
-                    <button className={styles.socialBtn} type="button">
-                        <i className="fa-brands fa-google"></i> Google
-                    </button>
-                    <button className={styles.socialBtn} type="button">
-                        <i className="fa-brands fa-linkedin"></i> LinkedIn
-                    </button>
-                </div>
 
                 <div className={styles.signup}>
                     Don't have an account? <Link to="/signup">Sign up</Link>

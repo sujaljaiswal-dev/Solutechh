@@ -37,11 +37,14 @@ const getAllProducts = async (req, res, next) => {
 
         const total = await Product.countDocuments(filter);
 
-        sendSuccess(res, 200, 'Products retrieved successfully', products, {
-            total,
-            pages: Math.ceil(total / limit),
-            currentPage: parseInt(page),
-            limit: parseInt(limit),
+        sendSuccess(res, 200, 'Products retrieved successfully', {
+            products,
+            pagination: {
+                total,
+                pages: Math.ceil(total / limit),
+                currentPage: parseInt(page),
+                limit: parseInt(limit),
+            },
         });
     } catch (error) {
         next(error);

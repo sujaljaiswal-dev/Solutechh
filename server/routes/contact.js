@@ -13,6 +13,10 @@ router.post(
     '/',
     contactLimiter,
     [
+        body('inquiryType')
+            .optional()
+            .isIn(['customer', 'career'])
+            .withMessage('Invalid inquiry type'),
         body('name').trim().notEmpty().withMessage('Name is required'),
         body('email')
             .isEmail()
@@ -25,9 +29,31 @@ router.post(
         body('reason')
             .trim()
             .notEmpty()
-            .withMessage('Reason for contact is required')
+            .withMessage('Message is required')
             .isLength({ max: 2000 })
             .withMessage('Reason cannot exceed 2000 characters'),
+        body('applyingFor')
+            .optional({ nullable: true, checkFalsy: true })
+            .custom((value, { req }) => {
+                if (req.body.inquiryType === 'career' && !value) {
+                    throw new Error('Applying For is required for career inquiries');
+                }
+
+                const allowedPositions = [
+                    'Office Admin',
+                    'CSSD Manager',
+                    'CSSD Clerk',
+                    'Housekeeping',
+                    'Project Manager',
+                    'Sales',
+                ];
+
+                if (value && !allowedPositions.includes(value)) {
+                    throw new Error('Please select a valid position');
+                }
+
+                return true;
+            }),
     ],
     contactController.submitContact
 );

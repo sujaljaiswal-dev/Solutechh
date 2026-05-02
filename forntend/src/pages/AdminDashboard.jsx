@@ -16,7 +16,7 @@ export default function AdminDashboard() {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        category: 'CSSD',
+        category: 'ICU Product',
         image: null,
     });
 
@@ -52,7 +52,7 @@ export default function AdminDashboard() {
             } else {
                 await adminAPI.addProduct(formData);
             }
-            setFormData({ name: '', description: '', category: 'CSSD', image: null });
+            setFormData({ name: '', description: '', category: 'ICU Product', image: null });
             setShowProductForm(false);
             setSelectedProduct(null);
             loadDashboardData();
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
                             onClick={() => {
                                 setShowProductForm(true);
                                 setSelectedProduct(null);
-                                setFormData({ name: '', description: '', category: 'CSSD', image: null });
+                                setFormData({ name: '', description: '', category: 'ICU Product', image: null });
                             }}
                         >
                             <i className="fa-solid fa-plus"></i> Add Product
@@ -219,11 +219,9 @@ export default function AdminDashboard() {
                                         value={formData.category}
                                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                     >
-                                        <option>CSSD</option>
-                                        <option>Modular OT</option>
-                                        <option>Skill Labs</option>
-                                        <option>Pneumatic System</option>
-                                        <option>Other</option>
+                                        <option>ICU Product</option>
+                                        <option>OT Product</option>
+                                        <option>EMR Product</option>
                                     </select>
                                 </div>
                                 <div className={styles.formGroup}>
@@ -319,8 +317,10 @@ export default function AdminDashboard() {
                                         {contact.status}
                                     </span>
                                 </div>
+                                <p><strong>Type:</strong> {contact.inquiryType === 'career' ? 'Career Opportunity' : 'Customer Inquiry'}</p>
                                 <p><strong>Email:</strong> {contact.email}</p>
                                 <p><strong>Phone:</strong> {contact.phone}</p>
+                                {contact.applyingFor && <p><strong>Applying For:</strong> {contact.applyingFor}</p>}
                                 <p><strong>Message:</strong> {contact.reason}</p>
                                 <div className={styles.contactActions}>
                                     <select

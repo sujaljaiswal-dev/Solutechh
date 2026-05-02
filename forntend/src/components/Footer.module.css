@@ -1,99 +1,189 @@
 .footer {
-  background: #236b67;
-  padding: 64px 0 28px;
-  color: black;
+  background: var(--teal-deep);
+  padding: clamp(2rem, 5vw, 4rem) 0 clamp(1.5rem, 3vw, 1.75rem);
+  color: var(--white);
 }
 
 .container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 0 clamp(1rem, 5vw, 3.75rem);
 }
 
 .footerTop {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr;
-  gap: 48px;
-  padding-bottom: 40px;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 4vw, 2.5rem);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+@media (min-width: 768px) {
+  .footerTop {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footerTop {
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  }
+}
+
 .footerBrand p {
-  font-size: 13px;
+  font-size: clamp(0.8rem, 1.5vw, 0.875rem);
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.45);
-  margin-top: 10px;
+  margin-top: clamp(0.5rem, 1vw, 0.75rem);
 }
 
 .logoFooter {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+  margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
 }
 
 .logoFooter img {
-  width: 40px;
-  height: 40px;
+  width: clamp(32px, 8vw, 40px);
+  height: clamp(32px, 8vw, 40px);
   object-fit: cover;
 }
 
 .logoFooter span {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
   font-weight: 700;
-  color: #1DB9AE;
+  color: var(--teal-primary);
+  white-space: nowrap;
 }
 
 .footerCol h5 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  font-family: var(--font-heading);
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 18px;
+  margin-bottom: clamp(1rem, 2vw, 1.25rem);
 }
 
 .footerCol a,
 .footerCol span {
   display: block;
-  font-size: 13px;
+  font-size: clamp(0.8rem, 1.5vw, 0.875rem);
   color: rgba(255, 255, 255, 0.45);
-  margin-bottom: 10px;
-  transition: color 0.2s;
+  margin-bottom: clamp(0.75rem, 1.5vw, 0.875rem);
+  transition: color var(--transition-fast);
   cursor: pointer;
 }
 
 .footerCol a:hover {
-  color: #1DB9AE;
+  color: var(--teal-primary);
 }
 
 .footerBottom {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 22px;
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .footerBottom p {
-  font-size: 12px;
-  color: black;
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
 }
 
-@media (max-width: 1024px) {
-  .footerTop {
-    grid-template-columns: 1fr 1fr;
+/* RESPONSIVE: TABLET (768px and up) */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .footerCol h5 {
+    margin-bottom: 1.25rem;
   }
 }
 
-@media (max-width: 768px) {
-  .footerTop {
-    grid-template-columns: 1fr;
-    gap: 28px;
+/* RESPONSIVE: DESKTOP (1024px and up) */
+@media (min-width: 1024px) {
+  .footer {
+    padding: 4rem 0 1.75rem;
   }
 
   .container {
-    padding: 0 20px;
+    padding: 0 3.75rem;
+  }
+}
+
+/* RESPONSIVE: MOBILE (max 767px) */
+@media (max-width: 767px) {
+  .footerTop {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footerBrand,
+  .footerCol {
+    text-align: center;
+  }
+
+  .logoFooter {
+    justify-content: center;
+  }
+
+  .footerCol a,
+  .footerCol span {
+    text-align: center;
+  }
+}
+
+/* RESPONSIVE: SMALL MOBILE (max 480px) */
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .footerTop {
+    gap: 1.5rem;
+  }
+
+  .logoFooter {
+    gap: 0.5rem;
+  }
+
+  .logoFooter img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logoFooter span {
+    font-size: 1rem;
+  }
+
+  .footerCol h5 {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .footerCol a,
+  .footerCol span {
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .footerBottom {
+    padding-top: 1rem;
+  }
+
+  .footerBottom p {
+    font-size: 0.75rem;
   }
 }

@@ -6,9 +6,12 @@ const mongoose = require('mongoose');
  */
 const connectDB = async () => {
     try {
+        // Use the modern connect signature. remove deprecated options `useNewUrlParser` and `useUnifiedTopology`.
+        // Add sensible timeouts and prefer IPv4 family if needed.
         const conn = await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 10000,
+            socketTimeoutMS: 45000,
+            family: 4,
         });
 
         console.log(`MongoDB Connected: ${conn.connection.host}`);

@@ -1,32 +1,60 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import founder1 from '../assets/founder1.jpg';
 import founder2 from '../assets/founder2.jpg';
+import homeBgTry from '../assets/home_bg_try.jpeg';
 import Footer from '../components/Footer';
 import ContactForm from '../components/ContactForm';
 import styles from './Home.module.css';
 
 export default function Home() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+  const { isAuthenticated, isLoading } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.openContact && isAuthenticated) {
+      setIsContactFormOpen(true);
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.pathname, location.state, navigate, isAuthenticated]);
+
+  const handleGetInTouch = () => {
+    if (!isAuthenticated) {
+      navigate('/login', {
+        state: {
+          returnTo: '/',
+          openContact: true,
+        },
+      });
+      return;
+    }
+
+    setIsContactFormOpen(true);
+  };
 
   return (
     <>
       {/* HERO */}
-      <section className={styles.hero}>
+      <section className={styles.hero} style={{ backgroundImage: `linear-gradient(to right, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 100%), url(${homeBgTry})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className='shape-1'></div>
         <div className={styles.heroContent}>
           <h1 className={styles.mainHeading}>
-            Building the Future<br />of <span>Healthcare Infrastructure</span>
+            <span>  Building the Future<br />of Healthcare Infrastructure</span>
           </h1>
-          <p>Designing &amp; Delivering Modern Healthcare Spaces</p>
+          <p>Designing &amp; Delivering Modern Healthcare</p>
           <div className={styles.btnGroup}>
             <a href="#services" className={`${styles.btn} ${styles.btnPrimary}`}>
               Explore Our Services <i className="fa-solid fa-arrow-right"></i>
             </a>
             <button
-              onClick={() => setIsContactFormOpen(true)}
+              onClick={handleGetInTouch}
               className={`${styles.btn} ${styles.btnPrimary}`}
-              style={{ padding: 0, cursor: 'pointer' }}
+              style={{ padding: 0, cursor: isLoading ? 'wait' : 'pointer' }}
+              disabled={isLoading}
             >
               Get in Touch
             </button>
@@ -96,6 +124,28 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* MAP SECTION */}
+      <section className={styles.mapSection}>
+        <div className="section-header"><h2>VISIT US</h2></div>
+        <a
+          href="https://www.google.com/maps/place/Damji+shamji+corporate+square/@19.0906927,72.9162142,17z/data=!3m1!4b1!4m6!3m5!1s0x3be7c7efb9449357:0xb2f99b5fbea7af95!8m2!3d19.0906927!4d72.9162142!16s%2Fg%2F11s_lgg1wp?entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.mapContainer}
+        >
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.8165548164857!2d72.9162142!3d19.0906927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7efb9449357%3A0xb2f99b5fbea7af95!2sDamji%20shamji%20corporate%20square!5e0!3m2!1sen!2sin!4v1714369201234"
+            width="100%"
+            height="400"
+            style={{ border: 0, borderRadius: '12px' }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <p className={styles.mapLabel}>Click to view on Google Maps</p>
+        </a>
       </section>
 
       <Footer />

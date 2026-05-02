@@ -1,14 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { contactAPI } from '../services/api';
 import styles from './ContactForm.module.css';
 
+const careerPositions = [
+    'Office Admin',
+    'CSSD Manager',
+    'CSSD Clerk',
+    'Housekeeping',
+    'Project Manager',
+    'Sales',
+];
+
 export default function ContactForm({ isOpen, onClose }) {
+    const { user, isAuthenticated } = useAuth();
+    const [formType, setFormType] = useState('customer');
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
+        name: user?.name || '',
+        email: user?.email || '',
         phone: '',
         reason: '',
+        applyingFor: '',
     });
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            setFormData((prev) => ({
+                ...prev,
+                name: user?.name || '',
+                email: user?.email || '',
+            }));
+        }
+    }, [isAuthenticated, user]);
 
     const [submitted, setSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -29,12 +52,21 @@ export default function ContactForm({ isOpen, onClose }) {
         setError('');
 
         try {
-            await contactAPI.submitContact(formData);
+            await contactAPI.submitContact({
+                ...formData,
+                inquiryType: formType,
+            });
             setSubmitted(true);
 
             // Reset form after 2 seconds and close
             setTimeout(() => {
-                setFormData({ name: '', email: '', phone: '', reason: '' });
+                setFormData({
+                    name: user?.name || '',
+                    email: user?.email || '',
+                    phone: '',
+                    reason: '',
+                    applyingFor: '',
+                });
                 setSubmitted(false);
                 onClose();
             }, 2000);
@@ -45,7 +77,7 @@ export default function ContactForm({ isOpen, onClose }) {
         }
     };
 
-    if (!isOpen) return null;
+    if (!isOpen || !isAuthenticated) return null;
 
     return (
         <div className={styles.modalOverlay} onClick={onClose}>
@@ -63,7 +95,26 @@ export default function ContactForm({ isOpen, onClose }) {
                 ) : (
                     <>
                         <h2>Get in Touch</h2>
-                        <p className={styles.subtitle}>Let's discuss how we can help your healthcare facility</p>
+
+                        <div className={styles.tabSwitcher}>
+                            <button
+                                type="button"
+                                className={`${styles.tabBtn} ${formType === 'customer' ? styles.activeTab : ''}`}
+                                onClick={() => {
+                                    setFormType('customer');
+                                    setFormData(prev => ({ ...prev, applyingFor: '' }));
+                                }}
+                            >
+                                Customer Inquiry
+                            </button>
+                            <button
+                                type="button"
+                                className={`${styles.tabBtn} ${formType === 'career' ? styles.activeTab : ''}`}
+                                onClick={() => setFormType('career')}
+                            >
+                                Career Opportunity
+                            </button>
+                        </div>
 
                         {error && <div style={{ color: '#dc3545', marginBottom: '15px', padding: '10px', backgroundColor: '#f8d7da', borderRadius: '4px' }}>{error}</div>}
 
@@ -75,8 +126,8 @@ export default function ContactForm({ isOpen, onClose }) {
                                     id="name"
                                     name="name"
                                     value={formData.name}
-                                    onChange={handleChange}
-                                    placeholder="Enter your full name"
+                                    readOnly
+                                    placeholder="Your profile name"
                                     required
                                 />
                             </div>
@@ -88,8 +139,8 @@ export default function ContactForm({ isOpen, onClose }) {
                                     id="email"
                                     name="email"
                                     value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="Enter your email"
+                                    readOnly
+                                    placeholder="Your profile email"
                                     required
                                 />
                             </div>
@@ -107,14 +158,40 @@ export default function ContactForm({ isOpen, onClose }) {
                                 />
                             </div>
 
+                            {formType === 'career' && (
+                                <div className={styles.formGroup}>
+                                    <label htmlFor="applyingFor">Applying For *</label>
+                                    <select
+                                        id="applyingFor"
+                                        name="applyingFor"
+                                        value={formData.applyingFor}
+                                        onChange={handleChange}
+                                        required
+                                    >
+                                        <option value="">Select a position</option>
+                                        {careerPositions.map((position) => (
+                                            <option key={position} value={position}>
+                                                {position}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
+
                             <div className={styles.formGroup}>
-                                <label htmlFor="reason">Reason for Contact *</label>
+                                <label htmlFor="reason">
+                                    {formType === 'career' ? 'Message / Cover Letter *' : 'Reason for Contact *'}
+                                </label>
                                 <textarea
                                     id="reason"
                                     name="reason"
                                     value={formData.reason}
                                     onChange={handleChange}
-                                    placeholder="Tell us what you're interested in..."
+                                    placeholder={
+                                        formType === 'career'
+                                            ? 'Tell us about your experience and interest in the role...'
+                                            : "Tell us what you're interested in..."
+                                    }
                                     rows="4"
                                     required
                                 ></textarea>

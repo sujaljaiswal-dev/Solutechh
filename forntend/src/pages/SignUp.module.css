@@ -123,37 +123,6 @@
     box-shadow: 0 0 0 3px rgba(29, 185, 174, 0.1);
 }
 
-.termsCheckbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    color: #666;
-    margin: 10px 0;
-}
-
-.termsCheckbox input[type="checkbox"] {
-    margin-top: 3px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.termsCheckbox label {
-    margin: 0;
-    cursor: pointer;
-}
-
-.termsCheckbox a {
-    color: #1DB9AE;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.termsCheckbox a:hover {
-    color: #16a89d;
-    text-decoration: underline;
-}
-
 .signupBtn {
     background: linear-gradient(135deg, #1DB9AE 0%, #16a89d 100%);
     color: white;
@@ -175,62 +144,6 @@
 .signupBtn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
-}
-
-.divider {
-    text-align: center;
-    margin: 30px 0;
-    color: #999;
-    font-size: 13px;
-    position: relative;
-}
-
-.divider::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 45%;
-    height: 1px;
-    background: #ddd;
-}
-
-.divider::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 45%;
-    height: 1px;
-    background: #ddd;
-}
-
-.socialSignup {
-    display: flex;
-    gap: 12px;
-}
-
-.socialBtn {
-    flex: 1;
-    padding: 12px;
-    border: 1.5px solid #ddd;
-    background: white;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    color: #333;
-}
-
-.socialBtn:hover {
-    border-color: #1DB9AE;
-    color: #1DB9AE;
-    background: rgba(29, 185, 174, 0.05);
 }
 
 .login {

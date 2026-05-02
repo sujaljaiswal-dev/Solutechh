@@ -8,30 +8,30 @@ const nodemailer = require('nodemailer');
  * @returns {Promise<void>}
  */
 const sendEmail = async (to, subject, htmlContent) => {
-    try {
-        const transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        });
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: to,
-            subject: subject,
-            html: htmlContent,
-        };
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: to,
+      subject: subject,
+      html: htmlContent,
+    };
 
-        await transporter.sendMail(mailOptions);
-        console.log(`Email sent to ${to}`);
-    } catch (error) {
-        console.error(`Error sending email: ${error.message}`);
-        throw new Error(`Email sending failed: ${error.message}`);
-    }
+    await transporter.sendMail(mailOptions);
+    console.log(`Email sent to ${to}`);
+  } catch (error) {
+    console.error(`Error sending email: ${error.message}`);
+    throw new Error(`Email sending failed: ${error.message}`);
+  }
 };
 
 /**
@@ -40,7 +40,12 @@ const sendEmail = async (to, subject, htmlContent) => {
  * @returns {string} - HTML email template
  */
 const generateContactNotificationEmail = (contactData) => {
-    return `
+  const inquiryLabel =
+    contactData.inquiryType === 'career'
+      ? 'Career Opportunity'
+      : 'Customer Inquiry';
+
+  return `
     <!DOCTYPE html>
     <html>
       <head>
@@ -57,9 +62,13 @@ const generateContactNotificationEmail = (contactData) => {
       <body>
         <div class="container">
           <div class="header">
-            <h2>New Contact Request</h2>
+            <h2>New ${inquiryLabel}</h2>
           </div>
           <div class="content">
+            <div class="field">
+              <div class="label">Type:</div>
+              <div class="value">${inquiryLabel}</div>
+            </div>
             <div class="field">
               <div class="label">Name:</div>
               <div class="value">${contactData.name}</div>
@@ -72,14 +81,14 @@ const generateContactNotificationEmail = (contactData) => {
               <div class="label">Phone:</div>
               <div class="value">${contactData.phone}</div>
             </div>
-            ${contactData.company ? `
+            ${contactData.applyingFor ? `
             <div class="field">
-              <div class="label">Company:</div>
-              <div class="value">${contactData.company}</div>
+              <div class="label">Applying For:</div>
+              <div class="value">${contactData.applyingFor}</div>
             </div>
             ` : ''}
             <div class="field">
-              <div class="label">Reason:</div>
+              <div class="label">Message:</div>
               <div class="value">${contactData.reason}</div>
             </div>
             <div class="field" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
@@ -95,6 +104,6 @@ const generateContactNotificationEmail = (contactData) => {
 };
 
 module.exports = {
-    sendEmail,
-    generateContactNotificationEmail,
+  sendEmail,
+  generateContactNotificationEmail,
 };

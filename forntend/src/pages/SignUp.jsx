@@ -12,7 +12,6 @@ export default function SignUp() {
         phone: '',
         password: '',
         confirmPassword: '',
-        agreeTerms: false,
     });
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -32,11 +31,6 @@ export default function SignUp() {
         // Validation
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
-            return;
-        }
-
-        if (!formData.agreeTerms) {
-            setError('Please agree to the terms and conditions');
             return;
         }
 
@@ -136,34 +130,10 @@ export default function SignUp() {
                         </div>
                     </div>
 
-                    <div className={styles.termsCheckbox}>
-                        <input
-                            type="checkbox"
-                            id="agreeTerms"
-                            name="agreeTerms"
-                            checked={formData.agreeTerms}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="agreeTerms">
-                            I agree to the <Link to="#">Terms and Conditions</Link> and <Link to="#">Privacy Policy</Link>
-                        </label>
-                    </div>
-
                     <button type="submit" className={styles.signupBtn} disabled={isLoading}>
                         {isLoading ? 'Creating Account...' : 'Sign Up'}
                     </button>
                 </form>
-
-                <div className={styles.divider}>OR</div>
-
-                <div className={styles.socialSignup}>
-                    <button className={styles.socialBtn} type="button">
-                        <i className="fa-brands fa-google"></i> Google
-                    </button>
-                    <button className={styles.socialBtn} type="button">
-                        <i className="fa-brands fa-linkedin"></i> LinkedIn
-                    </button>
-                </div>
 
                 <div className={styles.login}>
                     Already have an account? <Link to="/login">Sign in</Link>

@@ -16,13 +16,22 @@ const submitContact = async (req, res, next) => {
             return sendError(res, 400, errors.array()[0].msg);
         }
 
-        const { name, email, phone, reason } = req.body;
-
-        // Create new contact request
-        const contactRequest = new ContactRequest({
+        const {
+            inquiryType = 'customer',
             name,
             email,
             phone,
+            reason,
+            applyingFor,
+        } = req.body;
+
+        // Create new contact request
+        const contactRequest = new ContactRequest({
+            inquiryType,
+            name,
+            email,
+            phone,
+            applyingFor,
             reason,
         });
 
@@ -31,15 +40,19 @@ const submitContact = async (req, res, next) => {
         // Send email notification to admin
         try {
             const emailTemplate = generateContactNotificationEmail({
+                inquiryType,
                 name,
                 email,
                 phone,
+                applyingFor,
                 reason,
             });
 
             await sendEmail(
                 process.env.ADMIN_EMAIL,
-                `New Contact Request from ${name}`,
+                inquiryType === 'career'
+                    ? `New Career Application from ${name}`
+                    : `New Contact Request from ${name}`,
                 emailTemplate
             );
         } catch (emailError) {

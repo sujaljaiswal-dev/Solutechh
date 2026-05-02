@@ -5,6 +5,11 @@ const mongoose = require('mongoose');
  */
 const contactRequestSchema = new mongoose.Schema(
     {
+        inquiryType: {
+            type: String,
+            enum: ['customer', 'career'],
+            default: 'customer',
+        },
         name: {
             type: String,
             required: [true, 'Please provide your name'],
@@ -25,10 +30,10 @@ const contactRequestSchema = new mongoose.Schema(
             required: [true, 'Please provide a phone number'],
             match: [/^[\d\s\-\+\(\)]+$/, 'Please provide a valid phone number'],
         },
-        company: {
+        applyingFor: {
             type: String,
             trim: true,
-            maxlength: [200, 'Company name cannot exceed 200 characters'],
+            maxlength: [100, 'Position cannot exceed 100 characters'],
         },
         reason: {
             type: String,

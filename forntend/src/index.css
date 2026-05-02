@@ -1,20 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-:root {
-  --primary-teal: #1DB9AE;
-  --primary-teal-dark: #159a91;
-  --teal-deep: #127b73;
-  --text-dark: #333333;
-  --text-gray: #666666;
-  --bg-light: #f5f8f8;
-  --white: #ffffff;
-  --font-heading: 'Montserrat', sans-serif;
-  --font-body: 'Open Sans', sans-serif;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--font-body); color: var(--text-dark); background-color: var(--bg-light); overflow-x: hidden; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-html { scroll-behavior: smooth; }
+/* Import responsive design system */
+@import './styles/global.css';
+@import './styles/animations.css';
