@@ -11,16 +11,19 @@ const sendEmail = async (to, subject, htmlContent) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      secure: true, // true for 465, false for other ports
+      port: 587,           // ✅ Changed from 465 to 587
+      secure: false,       // ✅ Changed from true to false (587 uses TLS not SSL)
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+      tls: {
+        rejectUnauthorized: false  // ✅ Added this (fixes Render SSL issues)
+      }
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"Solutechh Website" <${process.env.EMAIL_USER}>`,  // ✅ Nicer sender name
       to: to,
       subject: subject,
       html: htmlContent,
