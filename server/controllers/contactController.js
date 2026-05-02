@@ -1,6 +1,5 @@
 const ContactRequest = require('../models/ContactRequest');
 const { sendSuccess, sendError } = require('../utils/apiResponse');
-const { sendEmail, generateContactNotificationEmail } = require('../utils/sendEmail');
 const { validationResult } = require('express-validator');
 
 /**
@@ -37,32 +36,9 @@ const submitContact = async (req, res, next) => {
 
         await contactRequest.save();
 
-        // Send email notification to admin
-        try {
-            const emailTemplate = generateContactNotificationEmail({
-                inquiryType,
-                name,
-                email,
-                phone,
-                applyingFor,
-                reason,
-            });
-
-            await sendEmail(
-                process.env.ADMIN_EMAIL,
-                inquiryType === 'career'
-                    ? `New Career Application from ${name}`
-                    : `New Contact Request from ${name}`,
-                emailTemplate
-            );
-        } catch (emailError) {
-            console.error('Email sending failed:', emailError);
-            // Don't fail the contact submission if email fails
-        }
-
         sendSuccess(res, 201, 'Contact request submitted successfully', {
             id: contactRequest._id,
-            message: 'We have received your message and will get back to you soon.',
+            message: 'Your request has been saved successfully. We will get back to you soon.',
         });
     } catch (error) {
         next(error);
