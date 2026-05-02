@@ -35,12 +35,12 @@
   font-weight: 700;
   color: var(--teal-primary);
   font-size: clamp(1rem, 3vw, 1.5rem);
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   margin: 0 0 2px;
 }
 
 .logoText p {
-  font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+  font-size: clamp(0.50rem, 1.0vw, 0.6rem);
   color: var(--text-gray);
   letter-spacing: 0.5px;
   text-transform: uppercase;

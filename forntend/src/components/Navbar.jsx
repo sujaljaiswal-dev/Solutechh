@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import logo from '../assets/solutechh.png';
+import logo from '../assets/logoSolu.jpeg';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
