@@ -1,4 +1,4 @@
-# Deployment Guide: Render (Backend) + Vercel (Frontend)
+# Deployment Guide: Render (Backend + Frontend)
 
 ## Pre-Deployment Checklist
 
@@ -17,13 +17,13 @@
 - [x] React Router configured correctly
 - [x] Vite build script exists (`npm run build`) — **Verified**
 - [x] .env.example provided with VITE_API_URL
-- [ ] VITE_API_URL points to Render backend URL (not localhost)
+- [ ] VITE_API_URL points to your Render backend URL (not localhost)
 - [ ] Removed all `console.log()` statements (optional, but recommended)
 - [ ] API client uses dynamic API_URL from env — **Already configured**
 
 ---
 
-## Part 1: Deploy Backend to Render
+## Part 1: Deploy Backend to Render Web Service
 
 ### Step 1: Connect GitHub to Render
 1. Go to [https://render.com](https://render.com)
@@ -65,10 +65,10 @@ EMAIL_USER=<your_email@gmail.com>
 EMAIL_PASS=<your_app_password>
 ADMIN_EMAIL=<admin_email@gmail.com>
 
-CLIENT_URL=https://<your-vercel-frontend-url>.vercel.app
+CLIENT_URL=https://<your-render-frontend-url>.onrender.com
 ```
 
-**Important:** Replace placeholders with actual values. `CLIENT_URL` should be your Vercel frontend URL (you'll get this after deploying frontend).
+**Important:** Replace placeholders with actual values. `CLIENT_URL` should be your Render frontend URL (you'll get this after deploying frontend).
 
 ### Step 4: Deploy
 1. Click **"Create Web Service"**
@@ -92,42 +92,42 @@ Expected response:
 
 ---
 
-## Part 2: Deploy Frontend to Vercel
+## Part 2: Deploy Frontend to Render Static Site
 
-### Step 1: Connect GitHub to Vercel
-1. Go to [https://vercel.com](https://vercel.com)
-2. Sign up or log in with GitHub
-3. Click **"Add New"** → **"Project"**
-4. Import the repository `solutechh-react`
+### Step 1: Connect GitHub to Render
+1. Go to [https://render.com](https://render.com)
+2. Sign up or log in
+3. Click **"New +"** → **"Static Site"**
+4. Connect your GitHub repository `solutechh-react`
 
 ### Step 2: Configure Project
 | Field | Value |
 |-------|-------|
-| **Project Name** | `solutechh` (or any name) |
+| **Name** | `solutechh-frontend` (or any name) |
 | **Root Directory** | `forntend` |
 | **Build Command** | `npm run build` |
-| **Output Directory** | `dist` |
+| **Publish Directory** | `dist` |
 | **Install Command** | `npm install` |
 
 ### Step 3: Add Environment Variables
 Click **"Environment Variables"** and add:
 
 ```
-VITE_API_URL=https://solutechh-api.onrender.com/api
+VITE_API_URL=https://<your-render-backend-url>.onrender.com/api
 ```
 
 (Replace with your actual Render backend URL from Part 1)
 
 ### Step 4: Deploy
-1. Click **"Deploy"**
-2. Vercel will build and deploy automatically
+1. Click **"Create Static Site"**
+2. Render will build and deploy automatically
 3. Wait for the deployment to complete
-4. Copy your frontend URL: `https://solutechh.vercel.app` (or your assigned URL)
+4. Copy your frontend URL: `https://solutechh-frontend.onrender.com` (or your assigned URL)
 
 ### Step 5: Update Backend CLIENT_URL
-Go back to Render and update the `CLIENT_URL` environment variable with your Vercel frontend URL:
+Go back to Render and update the `CLIENT_URL` environment variable with your Render frontend URL:
 ```
-CLIENT_URL=https://solutechh.vercel.app
+CLIENT_URL=https://solutechh-frontend.onrender.com
 ```
 
 Redeploy the backend by clicking **"Redeploy"** in Render.
@@ -137,7 +137,7 @@ Redeploy the backend by clicking **"Redeploy"** in Render.
 ## Part 3: Post-Deployment Verification
 
 ### Test Authentication Flow
-1. Open frontend: `https://solutechh.vercel.app`
+1. Open frontend: `https://solutechh-frontend.onrender.com`
 2. Click **Sign Up** and create an account
 3. Verify that:
    - Account is created successfully
@@ -165,10 +165,7 @@ Redeploy the backend by clicking **"Redeploy"** in Render.
 
 ### Monitor Logs
 **Render:**
-- Go to your service → **"Logs"** to watch real-time logs
-
-**Vercel:**
-- Go to your project → **"Deployments"** → Click deployment → **"Logs"**
+- Go to your web service or static site → **"Logs"** to watch real-time logs
 
 ---
 
@@ -182,13 +179,13 @@ Redeploy the backend by clicking **"Redeploy"** in Render.
 
 ### Frontend Shows Blank Page
 - **Check browser console** (F12 → Console) for errors
-- **Verify VITE_API_URL** is set correctly in Vercel env vars
+- **Verify VITE_API_URL** is set correctly in Render env vars for the static site
 - **Clear browser cache** and reload
-- **Check Vercel build logs** for build errors
+- **Check Render build logs** for build errors
 
 ### API Calls Failing (CORS Error)
 - **Verify CLIENT_URL** is set correctly in Render
-- **Ensure Vercel URL matches** CLIENT_URL in backend
+- **Ensure Render frontend URL matches** CLIENT_URL in backend
 - **Check browser console** for exact CORS error message
 
 ### Contact Form Not Sending Emails
@@ -240,7 +237,7 @@ VITE_API_URL=http://localhost:5000/api
 ## Useful Links
 
 - **Render Docs:** https://render.com/docs
-- **Vercel Docs:** https://vercel.com/docs
+- **Render Static Sites Docs:** https://render.com/docs/static-sites
 - **MongoDB Atlas:** https://www.mongodb.com/cloud/atlas
 - **Cloudinary:** https://cloudinary.com
 - **Gmail App Passwords:** https://myaccount.google.com/apppasswords
@@ -250,9 +247,9 @@ VITE_API_URL=http://localhost:5000/api
 ## Summary
 
 1. ✅ Backend deployed on Render → `https://solutechh-api.onrender.com`
-2. ✅ Frontend deployed on Vercel → `https://solutechh.vercel.app`
+2. ✅ Frontend deployed on Render → `https://solutechh-frontend.onrender.com`
 3. ✅ Frontend points to Render API
-4. ✅ Backend CORS allows Vercel URL
+4. ✅ Backend CORS allows Render frontend URL
 5. ✅ All env vars set in production
 6. ✅ Test all flows before going live
 
