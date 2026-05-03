@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
+import LoadingBar from '../components/LoadingBar';
 import { productAPI } from '../services/api';
 import styles from './Products.module.css';
 
@@ -36,8 +37,8 @@ export default function Products() {
       <section className={styles.pageSection}>
         <div className={styles.sectionHeader}><h2>Our Products</h2></div>
         {isLoading ? (
-          <div style={{ textAlign: 'center', padding: '40px' }}>
-            <p>Loading products...</p>
+          <div style={{ maxWidth: '720px', margin: '0 auto', padding: '40px 0' }}>
+            <LoadingBar message="Loading products..." />
           </div>
         ) : error ? (
           <div style={{ textAlign: 'center', padding: '40px', color: 'red' }}>

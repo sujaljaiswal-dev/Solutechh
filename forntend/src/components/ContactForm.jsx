@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import LoadingBar from './LoadingBar';
 import { contactAPI } from '../services/api';
 import styles from './ContactForm.module.css';
 
@@ -115,6 +116,8 @@ export default function ContactForm({ isOpen, onClose }) {
                                 Career Opportunity
                             </button>
                         </div>
+
+                        <LoadingBar show={isLoading} message="Submitting your request..." />
 
                         {error && <div style={{ color: '#dc3545', marginBottom: '15px', padding: '10px', backgroundColor: '#f8d7da', borderRadius: '4px' }}>{error}</div>}
 

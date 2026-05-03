@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { adminAPI } from '../services/api';
+import LoadingBar from '../components/LoadingBar';
 import styles from './AdminDashboard.module.css';
 
 export default function AdminDashboard() {
@@ -13,12 +14,15 @@ export default function AdminDashboard() {
     const [error, setError] = useState('');
     const [showProductForm, setShowProductForm] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [actionLoading, setActionLoading] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         description: '',
         category: 'ICU Product',
         image: null,
     });
+
+    const waitForPaint = () => new Promise((resolve) => requestAnimationFrame(() => resolve()));
 
     // Load dashboard data
     useEffect(() => {
@@ -46,7 +50,9 @@ export default function AdminDashboard() {
 
     const handleProductSubmit = async (e) => {
         e.preventDefault();
+        setActionLoading(selectedProduct ? 'Updating product...' : 'Adding product...');
         try {
+            await waitForPaint();
             if (selectedProduct) {
                 await adminAPI.updateProduct(selectedProduct._id, formData);
             } else {
@@ -55,48 +61,66 @@ export default function AdminDashboard() {
             setFormData({ name: '', description: '', category: 'ICU Product', image: null });
             setShowProductForm(false);
             setSelectedProduct(null);
-            loadDashboardData();
+            await loadDashboardData();
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to save product');
+        } finally {
+            setActionLoading('');
         }
     };
 
     const handleDeleteProduct = async (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
+            setActionLoading('Deleting product...');
             try {
+                await waitForPaint();
                 await adminAPI.deleteProduct(id);
-                loadDashboardData();
+                await loadDashboardData();
             } catch (err) {
                 setError('Failed to delete product');
+            } finally {
+                setActionLoading('');
             }
         }
     };
 
     const handleToggleProductStatus = async (id) => {
+        setActionLoading('Updating product status...');
         try {
+            await waitForPaint();
             await adminAPI.toggleProductStatus(id);
-            loadDashboardData();
+            await loadDashboardData();
         } catch (err) {
             setError('Failed to update product status');
+        } finally {
+            setActionLoading('');
         }
     };
 
     const handleContactStatusUpdate = async (contactId, status) => {
+        setActionLoading('Updating contact...');
         try {
+            await waitForPaint();
             await adminAPI.updateContactStatus(contactId, { status });
-            loadDashboardData();
+            await loadDashboardData();
         } catch (err) {
             setError('Failed to update contact status');
+        } finally {
+            setActionLoading('');
         }
     };
 
     const handleDeleteContact = async (id) => {
         if (window.confirm('Are you sure?')) {
+            setActionLoading('Deleting contact...');
             try {
+                await waitForPaint();
                 await adminAPI.deleteContact(id);
-                loadDashboardData();
+                await loadDashboardData();
             } catch (err) {
                 setError('Failed to delete contact');
+            } finally {
+                setActionLoading('');
             }
         }
     };
@@ -113,7 +137,11 @@ export default function AdminDashboard() {
     };
 
     if (isLoading && !stats) {
-        return <div className={styles.container}><p>Loading...</p></div>;
+        return (
+            <div className={styles.container}>
+                <LoadingBar message="Loading dashboard..." />
+            </div>
+        );
     }
 
     return (
@@ -122,6 +150,8 @@ export default function AdminDashboard() {
                 <h1>Admin Dashboard</h1>
                 <p>Welcome, {user?.name}</p>
             </div>
+
+            <LoadingBar show={Boolean(actionLoading)} message={actionLoading} />
 
             {error && <div className={styles.error}>{error}</div>}
 
